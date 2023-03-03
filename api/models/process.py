@@ -1,9 +1,10 @@
 from typing import List, Optional
 from pydantic import BaseModel, Field
 from bson import ObjectId
+from models.task import Tarefas
 
 
-class Process(BaseModel):
+class Processos(BaseModel):
     numero: str
     data: str
     status: str
@@ -19,6 +20,7 @@ class Process(BaseModel):
     observacoes: Optional[str]
     link: Optional[str]
     anotacoes: Optional[str]
+    tarefas: Optional[List[Tarefas]]
 
     class Config:
         schema_extra = {
@@ -37,6 +39,16 @@ class Process(BaseModel):
                 "honorarios": 1000.00,
                 "observacoes": "Cliente deseja realizar acordo extrajudicial",
                 "link": "https://meusite.com/processo0001",
-                "anotacoes": "Reunir documentos para a audiência"
+                "anotacoes": "Reunir documentos para a audiência",
+                "tarefas": [
+                    {
+                        "titulo": "Prazo para entrega de documentos",
+                        "descricao": "O prazo para entrega de documentos é até o dia 15/03/2023"
+                    },
+                    {
+                        "titulo": "Enviar notificação para a contra parte",
+                        "descricao": "Enviar notificação para a empresa X sobre o andamento do processo"
+                    }
+                ]
             }
         }
